@@ -1,5 +1,8 @@
 package com.workouttracker.workouttracker.Util;
 import com.workouttracker.workouttracker.repository.UserRepository;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.workouttracker.workouttracker.DTOs.AuthRequest;
 import com.workouttracker.workouttracker.DTOs.AuthResponse;
+import com.workouttracker.workouttracker.DTOs.UserDTO;
 import com.workouttracker.workouttracker.model.User;
 
 @Service
@@ -38,9 +42,12 @@ public class AuthService {
         return new AuthResponse(token);
     }
 
-    public String register(String username, String password, String email) {
+    public Optional<UserDTO> register(String username, String password, String email) {
+
         if (userRepository.existsByEmail(email)){
             throw new IllegalArgumentException("Email already in use!");
+        } else if (userRepository.existsByUsername(username)){
+            throw new IllegalArgumentException("username already in use");
         }
         String encodedPassword = passwordEncoder.encode(password);
         User newUser = new User();
@@ -49,7 +56,11 @@ public class AuthService {
         newUser.setPassword(encodedPassword);
         newUser.setRole("User");
         userRepository.save(newUser);
-        return "Användare lyckades skapas";
+
+        UserDTO userDTO = new UserDTO(newUser.getUsername());
+
+        System.out.println("Användare lyckades skapas");
+        return Optional.of(userDTO);
     }
 
 }
