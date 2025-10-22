@@ -35,7 +35,7 @@ public class UserController {
     public ResponseEntity<?> registerUser(@RequestParam String username, @RequestParam String password, @RequestParam String email){
         // Checkar att skickade värden inte är tomma eller null och sedan försöker man skapa användaren
         if(username != null && !username.isEmpty() && email != null && !email.isEmpty() && password != null && !password.isEmpty()){
-            Optional<UserDTO> optUser = authService.register(username, password, email);
+            Optional<?> optUser = authService.register(username, password, email);
             // Om värden var korrekta så skapas användaren så länge email är unikt i databasen 
             if (optUser.isPresent()){
                 return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("status", "Lyckades"));

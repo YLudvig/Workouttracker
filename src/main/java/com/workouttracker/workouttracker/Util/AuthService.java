@@ -39,7 +39,7 @@ public class AuthService {
         );
         String token = jwtTokenProvider.generateToken(authentication.getName());
         
-        return new AuthResponse(token);
+        return new AuthResponse(token, request.getUsername());
     }
 
     public Optional<UserDTO> register(String username, String password, String email) {
@@ -47,7 +47,7 @@ public class AuthService {
         if (userRepository.existsByEmail(email)){
             throw new IllegalArgumentException("Email already in use!");
         } else if (userRepository.existsByUsername(username)){
-            throw new IllegalArgumentException("username already in use");
+            throw new IllegalArgumentException("Username already in use");
         }
         String encodedPassword = passwordEncoder.encode(password);
         User newUser = new User();
