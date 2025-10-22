@@ -39,28 +39,29 @@ public class AuthService {
         );
         String token = jwtTokenProvider.generateToken(authentication.getName());
         
-        return new AuthResponse(token);
+        return new AuthResponse(token, request.getUsername());
     }
 
-    public Optional<UserDTO> register(String username, String password, String email) {
+    public Optional<?> register(String username, String password, String email) {
+        if (userRepository.existsByEmail(email) && userRepository.existsByUsername(username)){
+            return Optional.of("Email och användarnamn används redan");  
+        } else if(userRepository.existsByUsername(username)){
+            return Optional.of("Användarnamn används redan");
+        } else if(userRepository.existsByEmail(email)){
+            return Optional.of("Email används redan");
+        } else {
 
-        if (userRepository.existsByEmail(email)){
-            throw new IllegalArgumentException("Email already in use!");
-        } else if (userRepository.existsByUsername(username)){
-            throw new IllegalArgumentException("username already in use");
+            String encodedPassword = passwordEncoder.encode(password);
+            User newUser = new User();
+            newUser.setUsername(username);
+            newUser.setEmail(email);
+            newUser.setPassword(encodedPassword);
+            newUser.setRole("User");
+            userRepository.save(newUser);
+            
+            UserDTO userDTO = new UserDTO(newUser.getUsername());
+            
+            return Optional.of(userDTO);
         }
-        String encodedPassword = passwordEncoder.encode(password);
-        User newUser = new User();
-        newUser.setUsername(username);
-        newUser.setEmail(email);
-        newUser.setPassword(encodedPassword);
-        newUser.setRole("User");
-        userRepository.save(newUser);
-
-        UserDTO userDTO = new UserDTO(newUser.getUsername());
-
-        System.out.println("Användare lyckades skapas");
-        return Optional.of(userDTO);
     }
-
 }
