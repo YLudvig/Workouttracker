@@ -20,7 +20,7 @@ public class JwtTokenProvider {
     private final Key signingKey;
     private final long JWT_EXPIRATION = 604800000L;
 
-    public JwtTokenProvider(@Value("${jwt_secret}") String JWT_SECRET){
+    public JwtTokenProvider(@Value("${jwt.secret}") String JWT_SECRET){
         this.signingKey = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
