@@ -36,7 +36,6 @@ public class UserController {
         // Checkar att skickade värden inte är tomma eller null och sedan försöker man skapa användaren
         if(username != null && !username.isEmpty() && email != null && !email.isEmpty() && password != null && !password.isEmpty()){
             Optional<?> optUser = authService.register(username, password, email);
-            System.out.println(optUser.get());
             // Om värden var korrekta så skapas användaren så länge email är unikt i databasen 
             if (optUser.isPresent() && optUser.get() != "Email används redan" && optUser.get() != "Användarnamn används redan" && optUser.get() != "Email och användarnamn används redan"){
                 return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("status", "Lyckades"));
