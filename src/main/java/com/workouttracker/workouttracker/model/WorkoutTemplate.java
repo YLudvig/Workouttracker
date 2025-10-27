@@ -11,44 +11,36 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name = "workout")
-public class Workout {
+@Table (name = "workout_template")
+public class WorkoutTemplate {
     
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long workoutId; 
-
-    private Long userId; 
     private Long workoutTemplateId; 
 
-    private String workoutName; 
-    private boolean completed; 
-    private LocalDateTime completedAt; 
+    private Long userId; 
+    private String templateName; 
     
     @ElementCollection
     private List<Exercise> exercises;
 
 
-    public Workout() {
+    public WorkoutTemplate() {
     }
 
-    public Workout(Long workoutId, Long userId, Long workoutTemplateId, String workoutName, boolean completed,
-            LocalDateTime completedAt, List<Exercise> exercises) {
-        this.workoutId = workoutId;
-        this.userId = userId;
+    public WorkoutTemplate(Long workoutTemplateId, Long userId, String templateName, boolean completed, List<Exercise> exercises) {
         this.workoutTemplateId = workoutTemplateId;
-        this.workoutName = workoutName;
-        this.completed = completed;
-        this.completedAt = completedAt;
+        this.userId = userId;
+        this.templateName = templateName;
         this.exercises = exercises;
     }
 
-    public Long getWorkoutId() {
-        return workoutId;
+    public Long getWorkoutTemplateId() {
+        return workoutTemplateId;
     }
 
-    public void setWorkoutId(Long workoutId) {
-        this.workoutId = workoutId;
+    public void setWorkoutTemplateId(Long workoutId) {
+        this.workoutTemplateId = workoutId;
     }
 
     public Long getUserId() {
@@ -60,19 +52,11 @@ public class Workout {
     }
 
     public String getWorkoutName() {
-        return workoutName;
+        return templateName;
     }
 
     public void setWorkoutName(String workoutName) {
-        this.workoutName = workoutName;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+        this.templateName = workoutName;
     }
 
     public List<Exercise> getExercises() {
