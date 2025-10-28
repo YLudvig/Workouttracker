@@ -33,10 +33,16 @@ public class WorkoutTemplateController {
 
     // Mapping för att skapa en workout template 
     @PostMapping("/createTemplate")
-    public ResponseEntity<?> postMethodName(@RequestBody WorkoutTemplate workoutTemplate) {
+    public ResponseEntity<?> createWorkoutTemplate(@RequestBody WorkoutTemplate workoutTemplate) {
         return ResponseEntity.ok(workoutTemplateService.createWorkoutTemplate(workoutTemplate));
     }
+
     
+    // Mapping för att hämta alla anvädnarens workouttemplates
+    @GetMapping("/getTemplatesByTemplateId")
+    public WorkoutTemplate getWorkoutTemplateByWorkoutTemplateId(@RequestParam Long workoutTemplateId) {
+        return workoutTemplateService.getWorkoutTemplateByWorkoutTemplateId(workoutTemplateId);
+    }
     
     
 }

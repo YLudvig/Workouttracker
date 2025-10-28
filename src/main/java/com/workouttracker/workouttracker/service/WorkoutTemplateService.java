@@ -26,5 +26,9 @@ public class WorkoutTemplateService {
         return workoutTemplateRepository.save(workoutTemplate);
     }
 
+
+    public WorkoutTemplate getWorkoutTemplateByWorkoutTemplateId(Long workoutTemplateId){
+        return workoutTemplateRepository.findByWorkoutTemplateId(workoutTemplateId);
+    }
     
 }

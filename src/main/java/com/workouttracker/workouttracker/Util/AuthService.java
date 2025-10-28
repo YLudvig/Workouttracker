@@ -3,6 +3,8 @@ import com.workouttracker.workouttracker.repository.UserRepository;
 
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,8 +40,10 @@ public class AuthService {
             new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
         String token = jwtTokenProvider.generateToken(authentication.getName());
+
+        Long userId = userRepository.findByUsername(request.getUsername()).map(User::getId).orElseThrow();
         
-        return new AuthResponse(token, request.getUsername());
+        return new AuthResponse(token, request.getUsername(), userId);
     }
 
     public Optional<?> register(String username, String password, String email) {

@@ -9,5 +9,7 @@ import com.workouttracker.workouttracker.model.WorkoutTemplate;
 public interface WorkoutTemplateRepository extends JpaRepository<WorkoutTemplate, Long>{
 
     List<WorkoutTemplate> findByUserId(Long userId);
+
+    WorkoutTemplate findByWorkoutTemplateId(Long workoutTemplateId);
     
 }

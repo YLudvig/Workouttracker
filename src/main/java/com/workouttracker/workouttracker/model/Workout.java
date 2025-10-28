@@ -81,6 +81,22 @@ public class Workout {
 
     public void setExercises(List<Exercise> exercises) {
         this.exercises = exercises;
+    }
+
+    public Long getWorkoutTemplateId() {
+        return workoutTemplateId;
+    }
+
+    public void setWorkoutTemplateId(Long workoutTemplateId) {
+        this.workoutTemplateId = workoutTemplateId;
+    }
+
+    public LocalDateTime getCompletedAt() {
+        return completedAt;
+    }
+
+    public void setCompletedAt(LocalDateTime completedAt) {
+        this.completedAt = completedAt;
     } 
 
     
