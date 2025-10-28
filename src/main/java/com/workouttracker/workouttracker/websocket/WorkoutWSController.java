@@ -41,7 +41,7 @@ public class WorkoutWSController {
         Long userId = Long.valueOf(payload.get("userId").toString());
         Long templateId = Long.valueOf(payload.get("templateId").toString());
 
-        WorkoutTemplate template = templateService.getWorkoutTemplate(templateId);
+        WorkoutTemplate template = templateService.getWorkoutTemplateByWorkoutTemplateId(templateId);
 
         // Skapar sessionsidt 
         String sessionId = SessionCodeGenerator.getSessionCode(6);

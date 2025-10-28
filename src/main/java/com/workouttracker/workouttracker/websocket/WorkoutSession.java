@@ -33,7 +33,7 @@ public class WorkoutSession {
         this.sessionId = sessionId;
         this.templateId = templateId;
         this.templateName = templateName;
-        this.exercises = exercises;
+        this.exercises = new ArrayList<>(exercises);
         // Lägger automatiskt in våran hosts Id i listan av deltagare
         this.participantsIds = new ArrayList<>();
         this.participantsIds.add(hostId);

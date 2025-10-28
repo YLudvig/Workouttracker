@@ -27,8 +27,8 @@ public class WorkoutTemplateService {
     }
 
 
-    public WorkoutTemplate getWorkoutTemplate(Long templateId){
-        return workoutTemplateRepository.getByTemplateId(templateId);
+    public WorkoutTemplate getWorkoutTemplateByWorkoutTemplateId(Long workoutTemplateId){
+        return workoutTemplateRepository.findByWorkoutTemplateId(workoutTemplateId);
     }
     
 }
