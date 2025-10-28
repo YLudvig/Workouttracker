@@ -15,5 +15,12 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long>{
             WHERE user_id = :userId
             """, nativeQuery = true)
     List<Workout> findAllByUserId(Long userId);
+
+    @Query(value = """
+            SELECT * 
+            FROM workout 
+            WHERE workout_template_id = :templateId
+            """, nativeQuery = true)
+    List<Workout> findByTemplateId(Long templateId);
     
 }

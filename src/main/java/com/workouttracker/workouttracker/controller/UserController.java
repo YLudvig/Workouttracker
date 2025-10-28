@@ -1,7 +1,5 @@
 package com.workouttracker.workouttracker.controller;
 
-import com.workouttracker.workouttracker.DTOs.UserDTO;
-
 import java.util.Map;
 import java.util.Optional;
 

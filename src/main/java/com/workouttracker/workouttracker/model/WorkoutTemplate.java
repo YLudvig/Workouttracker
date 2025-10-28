@@ -1,13 +1,15 @@
 package com.workouttracker.workouttracker.model;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,7 +23,8 @@ public class WorkoutTemplate {
     private Long userId; 
     private String templateName; 
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "workout_exercises", joinColumns = @JoinColumn(name = "workout_template_id"))
     private List<Exercise> exercises;
 
 
@@ -51,20 +54,20 @@ public class WorkoutTemplate {
         this.userId = userId;
     }
 
-    public String getWorkoutName() {
-        return templateName;
-    }
-
-    public void setWorkoutName(String workoutName) {
-        this.templateName = workoutName;
-    }
-
     public List<Exercise> getExercises() {
         return exercises;
     }
 
     public void setExercises(List<Exercise> exercises) {
         this.exercises = exercises;
+    }
+
+    public String getTemplateName() {
+        return templateName;
+    }
+
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
     } 
 
     
