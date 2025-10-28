@@ -1,5 +1,6 @@
 package com.workouttracker.workouttracker.websocket;
 
+import java.security.Principal;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,13 +50,25 @@ public class WorkoutWSController {
 
         // Skapar sessionen 
         WorkoutSession session = new WorkoutSession(sessionId, templateId, template.getTemplateName(), template.getExercises(), userId);
-
+ 
         // Kör vår metod för att starta en session
         sessionManager.createSession(session);
-        // Startar vår session och börjar skicka meddelanden
-        messagingTemplate.convertAndSend("/topic/workout/" + sessionId, session);
 
-        messagingTemplate.convertAndSendToUser(headerAccessor.getSessionId(), "/queue/session-started", Map.of("sessionId", sessionId));
+        System.out.println("Header sessionId" + headerAccessor.getSessionId());
+        System.out.println("Active users" + messagingTemplate.getUserDestinationPrefix());
+
+        Principal user = headerAccessor.getUser();
+        if (user != null){
+            String username = user.getName(); 
+            System.out.println("Skickar till användaren: " + username);
+            System.out.println(user.getName());
+            messagingTemplate.convertAndSendToUser(username, "/queue/session-started", Map.of("sessionId", sessionId, "sessionData", session));
+        } else {
+            System.out.println("Blev fel med principal");
+        }   
+       
+        // Startar vår session och börjar skicka meddelanden
+        messagingTemplate.convertAndSend("/topic/session/" + sessionId, session);
     }
 
     // Mapping för att joina en workout 
