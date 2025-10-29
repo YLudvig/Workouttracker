@@ -10,9 +10,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import com.workouttracker.workouttracker.model.Exercise;
-import com.workouttracker.workouttracker.model.WorkoutTemplate;
 import com.workouttracker.workouttracker.service.WorkoutService;
-import com.workouttracker.workouttracker.service.WorkoutTemplateService;
 
 // Controller för våran WS genom denna så hanterar vi start av workout, 
 // updateringar under workouts (när man avslutar set) och avslutning av workout
@@ -30,8 +28,8 @@ public class WorkoutWSController {
     @Autowired
     private WorkoutService workoutService;
 
-    @Autowired
-    private WorkoutTemplateService templateService;
+   /*  @Autowired
+    private WorkoutTemplateService templateService; */
 
 
     // Mapping för att starta våran workout med ws
@@ -41,19 +39,19 @@ public class WorkoutWSController {
         Long userId = Long.valueOf(payload.get("userId").toString());
         Long templateId = Long.valueOf(payload.get("templateId").toString());
 
-        WorkoutTemplate template = templateService.getWorkoutTemplateByWorkoutTemplateId(templateId);
-
+/*         WorkoutTemplate template = templateService.getWorkoutTemplateByWorkoutTemplateId(templateId);
+ */
         // Skapar sessionsidt 
         String sessionId = SessionCodeGenerator.getSessionCode(6);
 
         System.out.println(sessionId);
 
         // Skapar sessionen 
-        WorkoutSession session = new WorkoutSession(sessionId, templateId, template.getTemplateName(), template.getExercises(), userId);
- 
+/*         WorkoutSession session = new WorkoutSession(sessionId, templateId, template.getTemplateName(), template.getExercises(), userId);
+ */ 
         // Kör vår metod för att starta en session
-        sessionManager.createSession(session);
-
+/*         sessionManager.createSession(session);
+ */
         System.out.println("Header sessionId" + headerAccessor.getSessionId());
         System.out.println("Active users" + messagingTemplate.getUserDestinationPrefix());
 
@@ -62,14 +60,14 @@ public class WorkoutWSController {
             String username = user.getName(); 
             System.out.println("Skickar till användaren: " + username);
             System.out.println(user.getName());
-            messagingTemplate.convertAndSendToUser(username, "/queue/session-started", Map.of("sessionId", sessionId, "sessionData", session));
-        } else {
+/*             messagingTemplate.convertAndSendToUser(username, "/queue/session-started", Map.of("sessionId", sessionId, "sessionData", session));
+ */        } else {
             System.out.println("Blev fel med principal");
         }   
        
         // Startar vår session och börjar skicka meddelanden
-        messagingTemplate.convertAndSend("/topic/session/" + sessionId, session);
-    }
+/*         messagingTemplate.convertAndSend("/topic/session/" + sessionId, session);
+ */    }
 
     // Mapping för att joina en workout 
     @MessageMapping("/session/join")
@@ -117,8 +115,8 @@ public class WorkoutWSController {
 
         WorkoutSession session = sessionManager.getSession(sessionId).orElseThrow(() -> new RuntimeException("Session inte funnen"));
 
-        workoutService.saveWorkoutForParticipants(session);
-        sessionManager.endSession(sessionId);
+/*         workoutService.saveWorkoutForParticipants(session);
+ */        sessionManager.endSession(sessionId);
 
         messagingTemplate.convertAndSend("/topic/session/" + sessionId, "Session avslutad för alla användare");
 
