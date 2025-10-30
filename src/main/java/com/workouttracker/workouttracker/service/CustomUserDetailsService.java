@@ -15,6 +15,8 @@ public class CustomUserDetailsService implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
 
+
+    // Metod som kollar ifall användarnamn finns i databas och om det finns så hämtar man lösenord och checkar om det stämmer 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)

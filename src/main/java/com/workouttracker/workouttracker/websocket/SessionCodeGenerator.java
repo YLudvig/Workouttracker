@@ -1,6 +1,7 @@
 package com.workouttracker.workouttracker.websocket;
 
-// Tog hjälp av denna guiden för att skapa lobbykoder 
+// Tog hjälp av denna guiden för att skapa lobbykoder: 
+// https://www.geeksforgeeks.org/java/generate-random-string-of-given-size-in-java/?utm_source=chatgpt.com
 public class SessionCodeGenerator {
 
     public static String getSessionCode(int n){

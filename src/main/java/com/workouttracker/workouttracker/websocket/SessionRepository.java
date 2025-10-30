@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Service;
 
+// Sett att lagra våra session utan att faktiskt spara dem i databas
 @Service
 public class SessionRepository {
 

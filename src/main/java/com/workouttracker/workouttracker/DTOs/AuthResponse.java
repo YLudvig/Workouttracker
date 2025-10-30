@@ -1,9 +1,9 @@
 package com.workouttracker.workouttracker.DTOs;
 
 
+// Response vid korrekt autentisering som ger användaren en token så att de efter lyckad inloggning har tillåtelse att åtkomma andr aapi calls 
 public class AuthResponse {
 
-    // Response vid korrekt autentisering osm ger användaren en token så att de efter lyckad inloggning har tillåtelse att åtkomma andr aapi calls 
     private String token;
     private String username; 
     private Long userId; 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+// Mapping som våran fråntendan kallar till för att interagera med vår chatbot
 @RestController
 @RequestMapping("/api/workouttracker")
 public class ChatController {

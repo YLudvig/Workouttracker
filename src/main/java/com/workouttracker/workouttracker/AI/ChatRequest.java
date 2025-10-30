@@ -3,12 +3,14 @@ package com.workouttracker.workouttracker.AI;
 import java.util.ArrayList;
 import java.util.List;
 
+// Typar upp hur en chatRequest ska se ut (hur en chat från användaren ska se ut när den skickas itll backend)
 public class ChatRequest {
 
     private String model; 
     private List<Message> messages; 
     private int n;
 
+    // Specificerade även här hur botten ska bete sig 
     public ChatRequest(String model, String prompt, int n) {
         this.model = model;
         this.messages = new ArrayList<>();

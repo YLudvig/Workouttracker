@@ -86,7 +86,7 @@ public class WebsocketService {
         }
     }
 
-
+    // Metod för att avsluta en session, här så sparar vi ens träningspass för alla användarna och sedan tar vi bort den tempoärara sessionen från vårt "repo"
     public void endSessionAndSaveWorkouts(String sessionCode){
         Session session = sessionRepository.findByCode(sessionCode); 
         if (session != null){

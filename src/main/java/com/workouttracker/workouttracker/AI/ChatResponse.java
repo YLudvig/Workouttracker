@@ -2,6 +2,8 @@ package com.workouttracker.workouttracker.AI;
 
 import java.util.List;
 
+// Typar upp hur ett svar ser ut 
+// Följde pluggatech guiden för att konstruera denna 
 public class ChatResponse {
 
     private List<Choice> choices;

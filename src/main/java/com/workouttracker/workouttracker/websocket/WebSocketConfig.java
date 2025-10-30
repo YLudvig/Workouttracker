@@ -10,6 +10,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
     
+    // Meedelanden tillåts till user, app, topic och queue
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config){
         config.enableSimpleBroker("/topic", "/queue"); 
@@ -17,6 +18,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
         config.setUserDestinationPrefix("/user");
     }
     
+    // WS connectar på /ws
+    // Tillåter calls från local angular url, behöver senare lägga till deployad url här också
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry){
         registry.addEndpoint("/ws")
