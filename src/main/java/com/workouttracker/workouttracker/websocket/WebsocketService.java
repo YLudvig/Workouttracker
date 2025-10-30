@@ -36,6 +36,7 @@ public class WebsocketService {
 
         // Finns sessionen så joinar man och läggs till i deltagarlistan 
         session.addParticipant(userId);
+        session.setSessionState(SessionStates.JOINED);
         return session; 
     }
 
@@ -48,6 +49,7 @@ public class WebsocketService {
         if (!session.getHostUserId().equals(userId)) throw new IllegalStateException("Enbart hosten kan starta sessionen");
         // Sätter session som startad
         session.setSessionState(SessionStates.STARTED);
+        sessionRepository.save(session);
         return session;
 
     }
@@ -60,6 +62,7 @@ public class WebsocketService {
 
         if (payload != null && payload.containsKey("workoutId")) {
         }
+        session.setSessionState(SessionStates.UPDATE);
         return session;
 
     }

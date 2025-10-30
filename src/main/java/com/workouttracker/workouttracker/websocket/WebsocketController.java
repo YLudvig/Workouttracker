@@ -31,7 +31,7 @@ public class WebsocketController {
         sessionEvent.sessionCode = workoutSession.getSessionCode();
         sessionEvent.actorUserId = request.hostUserId;
         sessionEvent.event = "SESSION_CREATED";
-        sessionEvent.payload = Map.of("particpants", workoutSession.getParticipants(), "sessionState", workoutSession.getSessionState().name());
+        sessionEvent.payload = Map.of("participants", workoutSession.getParticipants(), "sessionState", workoutSession.getSessionState().name());
 
         // Skickar info till topicen de subscribeat till 
         simpMessaging.convertAndSend("/topic/session." + workoutSession.getSessionCode(), sessionEvent);
@@ -52,10 +52,18 @@ public class WebsocketController {
         sessionEvent.sessionCode = workoutSession.getSessionCode();
         sessionEvent.actorUserId = request.userId;
         sessionEvent.event = "USER_JOINED";
-        sessionEvent.payload = Map.of("particpants", workoutSession.getParticipants());
+        sessionEvent.payload = Map.of("participants", workoutSession.getParticipants(), "sessionState", workoutSession.getSessionState().name());
         
         // Returnerar en snapshot av vad som hänt och vem som joinat
         simpMessaging.convertAndSend("/topic/session." + workoutSession.getSessionCode(), sessionEvent);
+
+        SessionEvent toJoiningUser = new SessionEvent(); 
+        toJoiningUser.sessionCode = workoutSession.getSessionCode();
+        toJoiningUser.actorUserId = request.userId; 
+        toJoiningUser.event = "SESSION_SYNC";
+        toJoiningUser.payload = Map.of("participants", workoutSession.getParticipants(), "sessionState", workoutSession.getSessionState().name());
+
+        simpMessaging.convertAndSendToUser(request.userId.toString(), "/queue/session-sync", toJoiningUser);
     }
 
     // Mapping för att starta en session 
@@ -67,7 +75,7 @@ public class WebsocketController {
         sessionEvent.sessionCode = workoutSession.getSessionCode();
         sessionEvent.actorUserId = request.actorUserId;
         sessionEvent.event = "SESSION_STARTED";
-        sessionEvent.payload = Map.of("particpants", workoutSession.getParticipants());
+        sessionEvent.payload = Map.of("participants", workoutSession.getParticipants(), "sessionState", workoutSession.getSessionState().name());
         
         // Returnerar en snapshot av vad som hänt och vem som joinat
         simpMessaging.convertAndSend("/topic/session." + workoutSession.getSessionCode(), sessionEvent);
@@ -77,10 +85,15 @@ public class WebsocketController {
     @MessageMapping("/session-update")
     public void updateSession(SessionEvent request){
         Session workoutSession = websocketService.updateSession(request.sessionCode, request.actorUserId, request.payload); 
-        request.event = "SESSION_UPDATE";
+        SessionEvent sessionEvent = new SessionEvent();
+
+        sessionEvent.sessionCode = workoutSession.getSessionCode();
+        sessionEvent.actorUserId = request.actorUserId;
+        sessionEvent.event = "SESSION_UPDATE";
+        sessionEvent.payload = Map.of("participants", workoutSession.getParticipants(), "sessionState", workoutSession.getSessionState().name(), "update", request.payload);
         
         // Returnerar en snapshot av vad som hänt och vem som joinat
-        simpMessaging.convertAndSend("/topic/session." + workoutSession.getSessionCode(), request);
+        simpMessaging.convertAndSend("/topic/session." + workoutSession.getSessionCode(), sessionEvent);
     }
 
      // Mapping för att starta en session 
@@ -92,7 +105,7 @@ public class WebsocketController {
         sessionEvent.sessionCode = workoutSession.getSessionCode();
         sessionEvent.actorUserId = request.actorUserId;
         sessionEvent.event = "SESSION_ENDED";
-        sessionEvent.payload = Map.of("particpants", workoutSession.getParticipants());
+        sessionEvent.payload = Map.of("participants", workoutSession.getParticipants(), "sessionState", workoutSession.getSessionState().name());
         
         // Returnerar en snapshot av vad som hänt och vem som joinat
         simpMessaging.convertAndSend("/topic/session." + workoutSession.getSessionCode(), sessionEvent);
