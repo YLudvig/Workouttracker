@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Service;
 
+// Sett att lagra våra session utan att faktiskt spara dem i databas
 @Service
 public class SessionRepository {
 
@@ -26,6 +27,7 @@ public class SessionRepository {
     // Deletear sessionen (nyttjas när man avslutar sin session)
     public boolean deleteByCode(String sessionCode){
         if (sessionCode == null) return false; 
+        if (findByCode(sessionCode) == null) return false; 
         return sessionsBySessionCode.remove(sessionCode) != null;
     }
 

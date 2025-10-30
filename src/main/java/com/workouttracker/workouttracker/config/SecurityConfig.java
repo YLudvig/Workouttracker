@@ -18,7 +18,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.workouttracker.workouttracker.Util.JwtAuthenticationFilter;
-import com.workouttracker.workouttracker.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -27,16 +26,13 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
-
-    // Används för att hasha våra lösenord så de inte storeas i rå text 
+    // Används för att hasha våra lösenord så de inte lagras i rå text 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // Extremt tolerant filter, hade behövt göras om för produktion
+    // Enkel securiftyFilterChain tillåter stripe calls, alla websocket calls och alla calls för auth (login, register)
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -50,6 +46,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    // en authmanager som checkar att inloggningsinfon stämmer 
     @Bean
     public AuthenticationManager authenticationManager (AuthenticationConfiguration configuration) throws Exception{
         return configuration.getAuthenticationManager();

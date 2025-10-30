@@ -26,6 +26,7 @@ public class JwtAuthenticationFilter extends GenericFilter{
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    // Checkar requests som inte är undantagna från filtrering i config, checkar att de har token som är giltig 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {

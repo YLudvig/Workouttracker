@@ -2,6 +2,7 @@ package com.workouttracker.workouttracker.websocket;
 
 import java.util.Map;
 
+// Typar upp hur ett sessionsEvent ser ut 
 public class SessionEvent {
     public String sessionCode; 
     public Long actorUserId; 

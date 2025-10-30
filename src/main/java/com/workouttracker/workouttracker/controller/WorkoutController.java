@@ -41,7 +41,7 @@ public class WorkoutController {
         // Hämtar alla workouts
         List<Workout> workouts = workoutService.getAllWorkoutsByUserId(userId);
         // Loopar igenom alla workouts och fetchar deras övningar från exercise tabellen 
-        // Detta kombineras sedan till våran repons til frontend
+        // Detta kombineras sedan till våran respons till frontend
         List<Map<String, Object>> response = new ArrayList<>(); 
         for (Workout workout : workouts){
             response.add(Map.of(

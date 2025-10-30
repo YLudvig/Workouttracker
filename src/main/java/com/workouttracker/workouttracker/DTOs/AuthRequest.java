@@ -1,5 +1,6 @@
 package com.workouttracker.workouttracker.DTOs;
 
+// Typar upp hur en inloggningsRequest ser ut
 public class AuthRequest {
   private String username; 
   private String password;

@@ -18,12 +18,15 @@ import io.jsonwebtoken.security.Keys;
 public class JwtTokenProvider {
 
     private final Key signingKey;
+    // Sätter hur länge som en token anses giltig 
     private final long JWT_EXPIRATION = 604800000L;
 
+    // Man nyttjar en secret key för att få ett unikt jwt system 
     public JwtTokenProvider(@Value("${jwt.secret}") String JWT_SECRET){
         this.signingKey = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
+    // Genererar token 
     public String generateToken(String username){
         return Jwts.builder()
             .setSubject(username)
@@ -33,6 +36,7 @@ public class JwtTokenProvider {
             .compact();
     }
 
+    // Metod för att hämta userName baserat på token 
     public String getUserNameFromToken(String token){
         return Jwts.parserBuilder()    
             .setSigningKey(signingKey)
@@ -42,6 +46,7 @@ public class JwtTokenProvider {
             .getSubject();
     }
 
+    // Metod för att validera/kontrollera token 
     public boolean validateToken(String token){
         try {
             Jwts.parserBuilder().

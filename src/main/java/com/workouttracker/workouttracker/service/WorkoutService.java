@@ -77,6 +77,7 @@ public class WorkoutService {
         workout.setUserId(userId);
         workout.setCompleted(false);
 
+        // Har enbart två produkter så designar ett system för att sätta info för just dem 
         if ("price_1SLgj7H45j46nWqxtf1O7bWJ".equals(priceId)){
             workout.setWorkoutName("Premium Push Program");
         } else if ("price_1SLkUFH45j46nWqx0myyaJAo".equals(priceId)) {

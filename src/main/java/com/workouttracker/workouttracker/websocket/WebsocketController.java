@@ -92,7 +92,7 @@ public class WebsocketController {
             "exercises", workoutSession.getExercises()
             );
         
-        // Returnerar en snapshot av vad som hänt och vem som joinat
+        // Returnerar en snapshot av vad som hänt
         simpMessaging.convertAndSend("/topic/session." + workoutSession.getSessionCode(), sessionEvent);
     }
     
@@ -122,7 +122,7 @@ public class WebsocketController {
             "exercises", workoutSession.getExercises()
             );
         
-        // Returnerar en snapshot av vad som hänt och vem som joinat
+        // Returnerar en snapshot av vad som hänt
         simpMessaging.convertAndSend("/topic/session." + workoutSession.getSessionCode(), sessionEvent);
     }
 

@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// Typar upp hur en exercise ser ut
 @Entity
 @Table(name = "exercise")
 public class Exercise {
