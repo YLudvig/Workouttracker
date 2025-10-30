@@ -6,7 +6,13 @@ Den finns deployad, länken bifogad i botten av denna readme.
 
 I denna appen så kan man som registrerad användare skapa träningspass och köra dem själv eller med vänner. 
 
-Man kan även köpa träningspass genom 
+Man kan även köpa träningspass genom vår stripeintegration. 
+
+# Techstack 
+- Spring Boot
+- Java
+- Stripe
+- Websocket
 
 Appen går att köra lokalt om man skapar en .env fil och däri placera: 
 - SECRET_KEY_OPENAI 
