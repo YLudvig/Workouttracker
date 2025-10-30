@@ -27,6 +27,7 @@ public class SessionRepository {
     // Deletear sessionen (nyttjas när man avslutar sin session)
     public boolean deleteByCode(String sessionCode){
         if (sessionCode == null) return false; 
+        if (findByCode(sessionCode) == null) return false; 
         return sessionsBySessionCode.remove(sessionCode) != null;
     }
 
