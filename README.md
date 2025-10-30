@@ -9,9 +9,9 @@ I denna appen så kan man som registrerad användare skapa träningspass och kö
 Man kan även köpa träningspass genom 
 
 Appen går att köra lokalt om man skapar en .env fil och däri placera: 
-SECRET_KEY_OPENAI 
-JWT_SECRET_KEY
-STRIPE_SECRET_KEY
+- SECRET_KEY_OPENAI 
+- JWT_SECRET_KEY
+- STRIPE_SECRET_KEY
 Behöver då själv hämta stripenyckel från stripe och nyckel från openai samt generera en jwt secret key 
 
 Backenden är byggd med Spring Boot Java och nyttjar en MySQL databas. Projektet nyttjar även websocket och Stripe för att ha premium funktionalitet och för att kunna synka träningspass mellan användare så att man kan träna ihop. 
