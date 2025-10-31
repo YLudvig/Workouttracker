@@ -39,4 +39,4 @@ Efter man har konfigurerat korrekta värden för databas så kan backenden enkel
 
 Frontend repo: https://github.com/YLudvig/workouttrackerfrontend
 
-Deployad sida: 
+Deployad sida: https://sea-lion-app-9hnsk.ondigitalocean.app/
