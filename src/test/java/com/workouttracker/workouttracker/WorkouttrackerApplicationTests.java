@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.workouttracker.workouttracker.DTOs.AuthRequest;
 import com.workouttracker.workouttracker.DTOs.AuthResponse;
-import com.workouttracker.workouttracker.DTOs.UserDTO;
 import com.workouttracker.workouttracker.DTOs.WorkoutRequest;
 import com.workouttracker.workouttracker.Util.AuthService;
 import com.workouttracker.workouttracker.model.Exercise;
