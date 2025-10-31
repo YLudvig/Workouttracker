@@ -55,7 +55,7 @@ public class PaymentController {
             SessionCreateParams params = SessionCreateParams.builder()
                     .setMode(SessionCreateParams.Mode.PAYMENT)
                     .setSuccessUrl("http://localhost:8080/api/stripe/payment-success?session_id={CHECKOUT_SESSION_ID}") //Vill byta denna till en mer lämplig i längden, borde göra en success.html
-                    .setCancelUrl("http://localhost:4200/homepage") //Vill byta denna till en mer lämplig i längden, borde göra en cancel.html
+                    .setCancelUrl("https://sea-lion-app-9hnsk.ondigitalocean.app/homepage") //Vill byta denna till en mer lämplig i längden, borde göra en cancel.html
                     .addLineItem(
                             SessionCreateParams.LineItem.builder() 
                                 .setQuantity(1L) 
@@ -95,7 +95,7 @@ public class PaymentController {
                 workoutService.addBoughtWorkout(userId, priceId);
             } 
 
-            return ResponseEntity.status(302).header("Location", "http://localhost:4200/homepage").build();
+            return ResponseEntity.status(302).header("Location", "https://sea-lion-app-9hnsk.ondigitalocean.app/homepage").build();
 
 
         } catch (Exception e) {
