@@ -1,12 +1,12 @@
 FROM eclipse-temurin:21-jdk-jammy AS builder
 WORKDIR /opt/app
 
-COPY workouttracker/.mvn/ .mvn
-COPY workouttracker/mvnw workouttracker/pom.xml ./
+COPY .mvn .mvn
+COPY mvnw pom.xml ./
 RUN chmod +x mvnw
 RUN ./mvnw dependency:go-offline
 
-COPY workouttracker/src ./src
+COPY src ./src
 RUN ./mvnw clean install -DskipTests
 
 FROM eclipse-temurin:21-jre-jammy
